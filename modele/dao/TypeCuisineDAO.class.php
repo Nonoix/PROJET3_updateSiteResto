@@ -134,7 +134,32 @@ class TypeCuisineDAO {
         }
         return $lesObjets;
     }
-    
+
+    public static function getAllNonProposeByIdR(int $idR): array {
+        $lesObjets = array();
+        try {
+            $requete = "select * from typeCuisine where idTC 
+                                not in 
+                                    (select typeCuisine.idTC from typeCuisine
+                                        inner join proposer on typeCuisine.idTC = proposer.idTC 
+                                        where proposer.idR = :idR
+                                    )"
+            ;
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindParam(':idR', $idR, PDO::PARAM_INT);
+            $ok = $stmt->execute();
+            if ($ok) {
+                while ($enreg = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $lesObjets[] = new TypeCuisine($enreg['idTC'], $enreg['libelleTC']);
+                }
+            }
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::getAllNonPreferesByIdU : <br/>" . $e->getMessage());
+        }
+        return $lesObjets;
+    }
+
+
     public static function deleteTypeCuisine(int $idTC) :bool{
         $ok = false;
         try{
@@ -155,6 +180,7 @@ class TypeCuisineDAO {
         $stmt = Bdd::getConnexion()->prepare($requete);
         $stmt->bindValue(':idTC', $lesCuisines->getIdTC(), PDO::PARAM_STR);
         $stmt->bindValue(':libelleTC', $lesCuisines->getLibelleTC(), PDO::PARAM_STR);
+        $ok = $stmt->execute();
         } catch (Exception $e) {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::addTypeCuisine : <br/>" . $e->getMessage());
         }

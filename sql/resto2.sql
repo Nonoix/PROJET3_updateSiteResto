@@ -353,8 +353,11 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `idU` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
+    MODIFY `idU` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+ALTER TABLE `resto`
+    MODIFY `idR` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `typeCuisine`
+    MODIFY `idTC` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Contraintes pour les tables déchargées
 --

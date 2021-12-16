@@ -15,6 +15,7 @@ use modele\dao\TypeCuisineDAO;
 
 Bdd::connecter();
 
+if ($GLOBALS['isLoggedAsAdmin']) {
 // Récupération des données utilisées dans la vue 
 // creation du menu burger
 $menuBurger = array();
@@ -33,11 +34,14 @@ if(!isset($_GET["idTC"])) {
     require_once "$racine/vue/pied.html.php";
 } else {
     $idTC = intval($_GET["idTC"]);
-    TypeCuisineDAO::deleteTypeCuisine($idTC);    
-    header('Location: http://localhost/phpprojectresto2021/?action=typesCuisine');
+    TypeCuisineDAO::deleteTypeCuisine($idTC);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 require_once "$racine/vue/entete.html.php";
 require_once "$racine/vue/vueTypesCuisine.php";
 require_once "$racine/vue/pied.html.php";
+} else {
+    echo "Vous n'êtes pas un compte administrateur ...";
+}
 ?>

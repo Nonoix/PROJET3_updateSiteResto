@@ -16,7 +16,7 @@ use modele\dao\CritiqueDAO;
  */
 Bdd::connecter();
 
-
+if ($GLOBALS['isLoggedAsAdmin']) {
 // Récupération des données GET, POST, et SESSION
 if (!isset($_GET["idR"])) {
     // Pb : pas d'id de restaurant
@@ -32,8 +32,10 @@ if (!isset($_GET["idR"])) {
     if ($idU != 0) {
         CritiqueDAO::delete($idR, $idU);
     }
-
 // redirection vers la page d'origine
     header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+} else {
+    echo "Vous n'êtes pas un compte administrateur ...";
 }
 ?>

@@ -344,6 +344,7 @@ class RestoDAO {
         $stmt->bindValue(':longitudeDegR', $unResto->getLongitudeDegR(), PDO::PARAM_STR);
         $stmt->bindValue(':descR', $unResto->getDescR(), PDO::PARAM_STR);
         $stmt->bindValue(':horairesR', $unResto->getHorairesR(), PDO::PARAM_STR);
+        $ok = $stmt->execute();
         } catch (Exception $e) {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::addResto : <br/>" . $e->getMessage());
         }

@@ -3,13 +3,26 @@
  * --------------
  * vueUtilisateurs
  * --------------
- * 
+ *
  * @version 07/2021 par NB : intégration couche modèle objet
- * 
- * Variables transmises par le contrôleur detailResto contenant les données à afficher : 
-  ---------------------------------------------------------------------------------------- */
+ *
+ * Variables transmises par le contrôleur detailResto contenant les données à afficher :
+---------------------------------------------------------------------------------------- */
 /** @var Utilisateur  $util utilisteur à afficher */
 ?>
+<script language = 'javascript'>
+    function confirmerDelete() {
+        return confirm("Êtes-vous sûr de vouloir supprimer ?");
+    }
+
+    function confirmerEdit() {
+        return confirm("Êtes-vous sûr de vouloir modifier ?");
+    }
+
+    function confirmerAdd() {
+        return confirm("Êtes-vous sûr de vouloir ajouter ?");
+    }
+</script>
 <h1>Gérer les restaurants</h1>
 
 <table class="user">
@@ -25,7 +38,7 @@
         <th>Description</th>
         <th>Horaires</th>
     </tr>
-    
+
     <?php
     foreach($listeRestos as $unResto){
         ?>
@@ -54,18 +67,20 @@
             <td><?= $LongitudeDegR ?></td>
             <td><?= $unResto->getDescR() ?></td>
             <td><?= $unResto->getHorairesR() ?></td>
-            <td><button name="user">Modifier</button>
-            <script language = 'javascript'>
-            function confirmer() {
-                return confirm("Êtes-vous sûr de vouloir supprimer ?");
-            }
-        </script>
-        <form action="./?action=supprimerRestaurants&idR=<?= $unResto->getIdR() ?>" method="post" name="suppressionResto">
-            <button value="Supprimer" onclick="return confirmer();">Supprimer</button></td>
-        </form>
+            <td>
+                <form action="./?action=ajouterTypeCuisine&idR=<?= $unResto->getIdR()?>" method="post" name="ajoutTypeCuisine">
+                    <button value="AjouterType" onclick="return confirmerAdd();">ajouter type cuisine</button>
+                </form>
+                <form action="./?action=editRestaurants&idR=<?= $unResto->getIdR()?>" method="post" name="modificationResto">
+                    <button value="Modifier" onclick="return confirmerEdit();">modifier</button>
+                </form>
+                <form action="./?action=supprimerRestaurants&idR=<?= $unResto->getIdR() ?>" method="post" name="suppressionResto">
+                    <button value="Supprimer" onclick="return confirmerDelete();">Supprimer</button>
+            </td>
+            </form>
         </tr>
-    <?php
+        <?php
     }
     ?>
 </table>
-<button name="user">Ajouter</button>
+<button name="ajoutRestaurants" onclick=" window.open('./?action=ajoutRestaurants')"> Ajouter restaurant</button>

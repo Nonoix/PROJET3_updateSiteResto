@@ -14,6 +14,7 @@ use modele\dao\TypeCuisineDAO;
 
 
 Bdd::connecter();
+if ($GLOBALS['isLoggedAsAdmin']) {
 
 // Récupération des données utilisées dans la vue 
 // creation du menu burger
@@ -29,4 +30,7 @@ $titre = "Gérer les types de cuisine";
 require_once "$racine/vue/entete.html.php";
 require_once "$racine/vue/vueTypesCuisine.php";
 require_once "$racine/vue/pied.html.php";
+} else {
+    echo "Vous n'êtes pas un compte administrateur ...";
+}
 ?>

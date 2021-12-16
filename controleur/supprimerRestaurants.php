@@ -15,6 +15,7 @@ use modele\dao\RestoDAO;
 
 Bdd::connecter();
 
+if ($GLOBALS['isLoggedAsAdmin']) {
 // Récupération des données utilisées dans la vue 
 // creation du menu burger
 $menuBurger = array();
@@ -33,11 +34,14 @@ if(!isset($_GET["idR"])) {
     require_once "$racine/vue/pied.html.php";
 } else {
     $idR = intval($_GET["idR"]);
-    RestoDAO::deleteResto($idR);    
-    header('Location: http://localhost/phpprojectresto2021/?action=restaurants');
+    RestoDAO::deleteResto($idR);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 require_once "$racine/vue/entete.html.php";
 require_once "$racine/vue/vueRestaurants.php";
 require_once "$racine/vue/pied.html.php";
+} else {
+    echo "Vous n'êtes pas un compte administrateur ...";
+}
 ?>

@@ -15,6 +15,7 @@ use modele\dao\RestoDAO;
 
 Bdd::connecter();
 
+if ($GLOBALS['isLoggedAsAdmin']) {
 // Récupération des données utilisées dans la vue 
 // creation du menu burger
 $menuBurger = array();
@@ -29,4 +30,7 @@ $titre = "Gérer les restaurants";
 require_once "$racine/vue/entete.html.php";
 require_once "$racine/vue/vueRestaurants.php";
 require_once "$racine/vue/pied.html.php";
+} else {
+    echo "Vous n'êtes pas un compte administrateur ...";
+}
 ?>

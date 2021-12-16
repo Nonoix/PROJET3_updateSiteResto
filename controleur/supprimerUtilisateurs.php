@@ -7,6 +7,7 @@ use modele\dao\UtilisateurDAO;
  * and open the template in the editor.
  */
 Bdd::connecter();
+if ($GLOBALS['isLoggedAsAdmin']) {
 
 $titre = "Gérer les utilisateurs";
 
@@ -19,12 +20,16 @@ if(!isset($_GET["idU"])) {
     require_once "$racine/vue/pied.html.php";
 } else {
     $idU = intval($_GET["idU"]);
-    UtilisateurDAO::deleteUser($idU);    
-    header('Location: http://localhost/phpprojectresto2021/?action=utilisateurs');
+    UtilisateurDAO::deleteUser($idU);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+
 }
 
 
 require_once "$racine/vue/entete.html.php";
 require_once "$racine/vue/vueUtilisateurs.php";
 require_once "$racine/vue/pied.html.php";
+} else {
+    echo "Vous n'êtes pas un compte administrateur ...";
+}
 ?>

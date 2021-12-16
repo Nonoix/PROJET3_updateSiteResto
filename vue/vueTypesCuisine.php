@@ -37,4 +37,4 @@
     }
     ?>
 </table>
-<button name="user">Ajouter</button>
+<button name="ajoutTypeCuisine" onclick=" window.open('./?action=ajoutTypeCuisine')"> Ajouter un type cuisine</button>
